@@ -1,0 +1,5 @@
+matplotlib
+numpy
+seaborn
+tqdm
+gymnasium==1.2.2
