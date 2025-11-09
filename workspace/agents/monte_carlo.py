@@ -1,9 +1,9 @@
 from collections import defaultdict
 import numpy as np
-from workspace.utils.training_config import TrainingConfig
+from workspace.utils.training_config_tabular import TrainingConfigTabular
 
 class MonteCarloAgent:
-    def __init__(self, action_n, cfg: TrainingConfig):
+    def __init__(self, action_n, cfg: TrainingConfigTabular):
         # Q estimate as average returns
         self.q_values = defaultdict(lambda: np.zeros(action_n))
 

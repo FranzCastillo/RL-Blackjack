@@ -1,8 +1,8 @@
-from workspace.utils.training_config import TrainingConfig
+from workspace.utils.training_config_tabular import TrainingConfigTabular
 from collections import defaultdict
 import numpy as np
 class MonteCarloESAgent:
-    def __init__(self, action_n, cfg: TrainingConfig):
+    def __init__(self, action_n, cfg: TrainingConfigTabular):
 
 
         self.q_values = defaultdict(lambda: np.zeros(action_n))

@@ -1,10 +1,10 @@
 from collections import defaultdict
 import numpy as np
-from workspace.utils.training_config import TrainingConfig
+from workspace.utils.training_config_tabular import TrainingConfigTabular
 
 class TDAgent:
     # Tabular, model-free Q-learning agent (off-policy), epsilon-greedy
-    def __init__(self, action_n, cfg: TrainingConfig):
+    def __init__(self, action_n, cfg: TrainingConfigTabular):
         self.q_values = defaultdict(lambda: np.zeros(action_n))
         self.lr = cfg.learning_rate
         self.discount_factor = cfg.discount_factor

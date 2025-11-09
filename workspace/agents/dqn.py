@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from collections import defaultdict
-from workspace.utils.training_config import TrainingConfig
+from workspace.utils.training_config_dqn import TrainingConfigDQN
 from workspace.agents.replay_buffer import ReplayBuffer
 
 class _MLP(nn.Module):
@@ -23,22 +23,21 @@ class _MLP(nn.Module):
         return self.net(x)
 
 class DQNAgent:
-    def __init__(self, action_n, cfg: TrainingConfig):
+    def __init__(self, action_n, cfg):
         self.action_n = int(action_n)
         self.cfg = cfg
 
-        # hyperparams (allow override from cfg)
-        self.lr = getattr(cfg, "learning_rate", 1e-3)
-        self.gamma = getattr(cfg, "discount_factor", 0.99)
-        self.batch_size = getattr(cfg, "batch_size", 64)
-        self.replay_size = getattr(cfg, "replay_size", 10000)
-        self.target_update_freq = getattr(cfg, "target_update_freq", 1000)
-        self.learn_every = getattr(cfg, "learn_every", 1)
-        self.hidden = getattr(cfg, "dqn_hidden", (128, 128))
+        self.lr = cfg.learning_rate
+        self.gamma = cfg.discount_factor
+        self.batch_size = cfg.batch_size
+        self.replay_size = cfg.replay_size
+        self.target_update_freq = cfg.target_update_freq
+        self.learn_every = cfg.learn_every
+        self.hidden = cfg.dqn_hidden
 
-        self.epsilon = getattr(cfg, "start_epsilon", 1.0)
-        self.epsilon_decay = getattr(cfg, "epsilon_decay", 1e-4)
-        self.final_epsilon = getattr(cfg, "final_epsilon", 0.1)
+        self.epsilon = cfg.start_epsilon
+        self.epsilon_decay = cfg.epsilon_decay
+        self.final_epsilon = cfg.final_epsilon
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
